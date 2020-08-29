@@ -66,6 +66,7 @@ Create an image out of random noise...
 >>> randpics = np.random.rand(280,280) * noise_amplitude
 >>> plt.imshow(randpics, cmap="gray", origin="lower")
 ````
+![Alt text](images/noise.png?raw=true)
 
 ... and convert it to a string
 ````
