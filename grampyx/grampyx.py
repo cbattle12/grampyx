@@ -23,7 +23,7 @@ def grams2pix(words: str,
     :param words: string of words separated by separator (defaults to whitespace)
     :param mapping: char to pixel mapping dictionary. Valid values are ordered, frequency, aesthetic
     :param pictype: type of picture. Valid values are punchcard (binary) or gradient (interpolated grayscale)
-    :param compress: compress image bool. If True, shorten word by removing letters per their ordering in the
+    :param compress: compress string bool. If True, shorten word by removing letters per their ordering in the
             mapping dict for words > 28 characters. If False, map only the first 28 characters of the word.
     :param separator: word separator, used as arg for str.split()
     :param n: dimension of square image to return (n x n). If the number of words < n x n, the extra space is
@@ -94,7 +94,7 @@ def _word2pic(word: str, mapping: str = "aesthetic", pictype: str = "gradient", 
     :param word: string to convert, only letters a-z are mapped
     :param mapping: char to pixel mapping dictionary. Valid values are ordered, frequency, aesthetic
     :param pictype: type of picture. Valid values are punchcard (binary) or gradient (interpolated grayscale)
-    :param compress: compress image bool. If True, shorten word by removing letters per their ordering in the
+    :param compress: compress string bool. If True, shorten word by removing letters per their ordering in the
             mapping dict for words > 28 characters. If False, map only the first 28 characters of the word.
     :return: mapped image
     """

@@ -2,7 +2,8 @@
 Convert text to image
 
 Simple tool to transform English text to binary or grayscale image. Takes a string as input and maps it to a NumPy
-array with values [0,1].
+array with values in interval [0,1]. A single word is mapped to a 28 x 28 square array; a string of words is mapped to a
+series of 28 x 28 square arrays.
 
 ## Examples
 
@@ -79,3 +80,30 @@ rlbj mwpoqtbql xulg nbiasxfs avyt uxges lycqur ldqeauq arkgwkmhk ttnih guwsdkg r
 knsmihvp igngksqo jynhhjbm udsb rrkybjh ysekttm ftmimng yuplgt tqoolfwe scfkfre bfhgwmjp jwlzdbcopdj dyoaun lusw
 skkbfhgq jzwjbktk cuxlk agloof notspl'
 ````
+
+## Options
+
+`grams2pix`
+`mapping` - Possible values are `ordered`, `frequency`, and `aesthetic`. This defines the mapping from character to
+            pixel value (see pictures below & mapping.py). Defaults to `aesthetic`.
+`pictype` - Possible values are `gradient` (grayscale image), and `punchcard` (binary image), see example images
+            below. The `punchcard` option is about 4x faster. Defaults to `gradient`
+`compress` - Compress string boolean. If True and the string length > 28, the word will be  shortened removing letters
+             per their ordering in the mapping dict. If False, map only the first 28 characters of the word. Defaults
+             to False.
+`separator` - Word separator for input string. Defaults to whitepace.
+`n` - Dimension of square image to return (n x n). If the number of words < n x n, the extra space is zero-padded.
+      Default behavior is to take the maximum n where n x n < number of words.
+
+
+`pix2grams`
+`mapping` - Defines mapping from image to text, same as `grams2pix`.
+`separator` - Word separator for output string. Defaults to whitepace.
+
+![Alt text](images/mapping_pictype_examples.png?raw=true)
+
+## Limitations
+
+Images where all pixel values are < 1, or all are > 1, are mapped to the empty string. Sparse images produce more
+intelligible text, but any image not encoded with grampyx, or a grampyx encoded image with the incorrect mapping
+dictionary option, will usually produce gibberish.
