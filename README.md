@@ -15,7 +15,7 @@ String to image
 >>> im = gpx.grams2pix(s)
 >>> plt.imshow(im, cmap="gray", origin="lower")
 ````
-![Alt text](images/grampyxisawesome.png?raw=true)
+![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/grampyxisawesome.png?raw=true)
 
 Image back to string
 ````
@@ -35,7 +35,7 @@ Convert the Life and Letters of Jane Austen (from Project Gutenberg) to an image
 >>> plt.imshow(im, cmap='gray', origin="lower")
 >>> plt.title(corpus_filename.replace(".txt",""))
 ````
-![Alt text](images/janeausten.png?raw=true)
+![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/janeausten.png?raw=true)
 
 
 Detail of image
@@ -43,7 +43,7 @@ Detail of image
 >>> plt.figure(figsize=(16,14))
 >>> plt.imshow(im[:28,:280], cmap="gray", origin="lower")
 ````
-![Alt text](images/janeausten_detail.png?raw=true)
+![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/janeausten_detail.png?raw=true)
 
 
 Convert the image back to text
@@ -67,7 +67,7 @@ Create an image out of random noise...
 >>> randpics = np.random.rand(280,280) * noise_amplitude
 >>> plt.imshow(randpics, cmap="gray", origin="lower")
 ````
-![Alt text](images/noise.png?raw=true)
+![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/noise.png?raw=true)
 
 ... and convert it to a string
 ````
@@ -100,7 +100,7 @@ skkbfhgq jzwjbktk cuxlk agloof notspl'
 * `mapping` - Defines mapping from image to text, same as `grams2pix`.
 * `separator` - Word separator for output string. Defaults to whitepace.
 
-![Alt text](images/mapping_pictype_examples.png?raw=true)
+![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/mapping_pictype_examples.png?raw=true)
 
 ## Limitations
 
