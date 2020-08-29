@@ -2,8 +2,8 @@ import numpy as np
 import warnings
 import re
 from typing import Optional
-from grampyx.grampyx.mappings import mapping_dicts, inverse_mapping_dicts
-import grampyx.grampyx.error_handling as err
+from grampyx.mappings import mapping_dicts, inverse_mapping_dicts
+import grampyx.error_handling as err
 
 
 ARRAY_DIM = 28
