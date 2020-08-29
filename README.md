@@ -84,21 +84,21 @@ skkbfhgq jzwjbktk cuxlk agloof notspl'
 ## Options
 
 `grams2pix`
-`mapping` - Possible values are `ordered`, `frequency`, and `aesthetic`. This defines the mapping from character to
+* `mapping` - Possible values are `ordered`, `frequency`, and `aesthetic`. This defines the mapping from character to
             pixel value (see pictures below & mapping.py). Defaults to `aesthetic`.
-`pictype` - Possible values are `gradient` (grayscale image), and `punchcard` (binary image), see example images
+* `pictype` - Possible values are `gradient` (grayscale image), and `punchcard` (binary image), see example images
             below. The `punchcard` option is about 4x faster. Defaults to `gradient`
-`compress` - Compress string boolean. If True and the string length > 28, the word will be  shortened removing letters
+* `compress` - Compress string boolean. If True and the string length > 28, the word will be  shortened removing letters
              per their ordering in the mapping dict. If False, map only the first 28 characters of the word. Defaults
              to False.
-`separator` - Word separator for input string. Defaults to whitepace.
-`n` - Dimension of square image to return (n x n). If the number of words < n x n, the extra space is zero-padded.
+* `separator` - Word separator for input string. Defaults to whitepace.
+* `n` - Dimension of square image to return (n x n). If the number of words < n x n, the extra space is zero-padded.
       Default behavior is to take the maximum n where n x n < number of words.
 
 
 `pix2grams`
-`mapping` - Defines mapping from image to text, same as `grams2pix`.
-`separator` - Word separator for output string. Defaults to whitepace.
+* `mapping` - Defines mapping from image to text, same as `grams2pix`.
+* `separator` - Word separator for output string. Defaults to whitepace.
 
 ![Alt text](images/mapping_pictype_examples.png?raw=true)
 
