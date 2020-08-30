@@ -4,7 +4,7 @@ from grampyx.__init__  import __version__
 
 
 PARENT_DIR = pathlib.Path(__file__).parent
-README = (PARENT_DIR / "README.md").read_text()
+README = (PARENT_DIR / "Examples.md").read_text()
 
 setup(
     name="grampyx",
