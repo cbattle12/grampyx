@@ -87,6 +87,34 @@ def pix2grams(pic: np.ndarray, mapping: str = "aesthetic", separator: str = " ")
     return separator.join(words)
 
 
+def savepix(*args, **kwargs) -> None:
+    """
+    Convenience wrapper function for numpy.save https://numpy.org/doc/stable/reference/generated/numpy.save.html
+    Saves array to numpy lib format
+    https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#module-numpy.lib.format
+    Usage: savepix(file, arr, allow_pickle=True, fix_imports=True)
+
+    :param args: See numpy.save
+    :param kwargs:  See numpy.save
+    :return: None
+    """
+    return np.save(*args, **kwargs)
+
+
+def loadpix(*args, **kwargs) -> np.ndarray:
+    """
+    Convenience wrapper function for numpy.load https://numpy.org/doc/stable/reference/generated/numpy.save.html
+    Loads array from numpy lib format
+    https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#module-numpy.lib.format
+    Usage: loadpix(file, mmap_mode=None, allow_pickle=False, fix_imports=True, encoding='ASCII')
+
+    :param args: See numpy.save
+    :param kwargs:  See numpy.save
+    :return: numpy array
+    """
+    return np.load(*args, **kwargs)
+
+
 def _word2pic(word: str, mapping: str = "aesthetic", pictype: str = "gradient", compress: bool = False) -> np.ndarray:
     """
     Convert string to ARRAY_DIM x ARRAY_DIM image
