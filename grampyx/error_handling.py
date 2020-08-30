@@ -1,8 +1,8 @@
 import warnings
 
-def PixelValuesWarning(UserWarning):
+class PixelValuesWarning(UserWarning):
     pass
 
 
-def NoAlphabetCharsWarning(UserWarning):
+class NoAlphabetCharsWarning(UserWarning):
     pass

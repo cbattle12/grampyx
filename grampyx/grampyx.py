@@ -3,7 +3,7 @@ import warnings
 import re
 from typing import Optional
 from grampyx.mappings import mapping_dicts, inverse_mapping_dicts
-import grampyx.error_handling as err
+from grampyx.error_handling import NoAlphabetCharsWarning, PixelValuesWarning
 
 
 ARRAY_DIM = 28
@@ -34,7 +34,7 @@ def grams2pix(words: str,
 
     if not re.search('[a-zA-Z]', words):
         warnings.warn(f"No English alphabet characters found in input string, returning {dim} x {dim} zero-array",
-                      err.NoAlphabetCharsWarning)
+                      NoAlphabetCharsWarning)
         return np.zeros((dim, dim))
 
     word_list = words.split(separator)
@@ -71,8 +71,8 @@ def pix2grams(pic: np.ndarray, mapping: str = "aesthetic", separator: str = " ")
     dim = ARRAY_DIM
     if (pic < 1).all():
         warnings.warn(f"All image pixel values < 1, returning empty string. Please rescale your image to contain values"
-                      " > 1 to generate text.", err.PixelValuesWarning)
-        return np.zeros((dim, dim))
+                      " > 1 to generate text.", PixelValuesWarning)
+        return ''
 
     words = []
     length = int(pic.shape[0] / dim)
