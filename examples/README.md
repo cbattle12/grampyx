@@ -1,6 +1,6 @@
 ## Image Processing on Text Images
 
-Here's an image of around 7000 English words
+Here's an image of around 7000 English words greated with grampyx
 ![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/english_7000.png?raw=true)
 
 We can use some image processing tricks to play with the image, like applying a Gaussian blur
