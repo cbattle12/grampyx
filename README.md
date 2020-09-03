@@ -1,5 +1,6 @@
 # grampyx
 [![Build Status](https://travis-ci.com/cbattle12/grampyx.svg?branch=master)](https://travis-ci.com/cbattle12/grampyx.svg?branch=master)
+
 Convert text to image
 
 Simple tool to transform English text to binary or grayscale image. Takes a string as input and maps it to a NumPy
