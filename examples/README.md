@@ -44,7 +44,7 @@ Then we can convert the blurred image back into "blurred" words
 To complement our image of English words, here's an image of around 7000 Dutch words
  ![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/dutch_7000.png?raw=true)
 
-We can sum the images of English and Dutch words
+We can sum the images of English and Dutch words (which doesn't look that different)
 ````
 >>> avg_en_nl = im_nl + im_en
 >>> plt.figure(figsize=(14,12))
@@ -55,7 +55,7 @@ We can sum the images of English and Dutch words
 ![Alt text](https://github.com/cbattle12/grampyx/blob/master/images/dutch_english_sum.png?raw=true)
 
 
-and we can convert the image sum back to words for some interesting results
+and we can convert the image sum back to words, in the process mixing the characters between the summed words
 ````
 avg_en_nl_str = gpx.pix2grams(im_nl + im_en)
 avg_en_nl_str.split()[-20:]
