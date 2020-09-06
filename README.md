@@ -7,8 +7,8 @@ Simple tool to transform English text to binary or grayscale image. Takes a stri
 array with values in interval [0,1]. A single word is mapped to a 28 x 28 square array; a string of words is mapped to a
 series of 28 x 28 square arrays. Why would you want to do that, you ask? Because, let's face it, it's fun to transform
 words into weird little pictograms, and to represent books in picture form. Head over to
-[examples](https://github.com/user/repo/blob/branch/other_file.md) to see how you can use image processing techniques
-to transform words.
+[examples](https://github.com/cbattle12/grampyx/tree/master/examples/README.md) to see how you can use image processing
+techniques to transform words.
 
 ## Examples
 
