@@ -88,7 +88,7 @@ def pix2grams(pic: np.ndarray, mapping: str = "aesthetic", separator: str = " ")
         words.append(_pic2word(pic[row_idx * ARRAY_DIM:(row_idx + 1) * ARRAY_DIM,
                                     col_idx * ARRAY_DIM:(col_idx + 1) * ARRAY_DIM],
                                     mapping = mapping))
-    return separator.join(words)
+    return separator.join(words).strip(separator)
 
 
 def _word2pic(word: str, mapping: str = "aesthetic", pictype: str = "gradient", compress: bool = False) -> np.ndarray:
