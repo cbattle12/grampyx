@@ -44,5 +44,11 @@ class TestGrampyx(unittest.TestCase):
         np.testing.assert_array_equal(gpx.pix2grams(self.alice_image), self.alice_quote)
 
 
+    def test_non_finite_values(self):
+        np.testing.assert_array_equal(gpx.pix2grams(np.full((self.dim * 10, self.dim * 10), np.nan)), "")
+        np.testing.assert_array_equal(gpx.pix2grams(np.full((self.dim * 10, self.dim * 10), np.inf)), "")
+        np.testing.assert_array_equal(gpx.pix2grams(np.full((self.dim * 10, self.dim * 10), -np.inf)), "")
+
+
 if __name__ == '__main__':
     unittest.main()
