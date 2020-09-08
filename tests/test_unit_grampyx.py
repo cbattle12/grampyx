@@ -40,8 +40,8 @@ class TestGrampyx(unittest.TestCase):
 
 
     def test_grams2pix_pix2grams(self):
-        np.testing.assert_array_equal(gpx.grams2pix(self.alice_quote), self.alice_image)
-        np.testing.assert_array_equal(gpx.pix2grams(self.alice_image), self.qlice_quote)
+        np.testing.assert_array_equal(gpx.grams2pix(self.alice_quote, n=8), self.alice_image)
+        np.testing.assert_array_equal(gpx.pix2grams(self.alice_image), self.alice_quote)
 
 
 if __name__ == '__main__':
