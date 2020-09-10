@@ -14,7 +14,7 @@ class TestGrampyx(unittest.TestCase):
             "exclaimed alice that s the reason they re called lessons the gryphon remarked because "
             "they lessen from day to day"
         )
-        cls.alice_image = np.load("data/alice_image.npy")
+        cls.alice_image = np.load(r"data/alice_image.npy")
 
     def test_word2pic_pic2word_mapping(self):
         a_arr = np.zeros((self.dim, self.dim))
