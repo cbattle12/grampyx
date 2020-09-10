@@ -4,7 +4,7 @@ import re
 from typing import Optional
 
 from grampyx.mappings import mapping_dicts, inverse_mapping_dicts
-from grampyx.error_handling import NoAlphabetCharsWarning, PixelValuesWarning
+from grampyx.error_handling import NoAlphabetCharactersWarning, PixelValuesWarning
 
 
 ARRAY_DIM = 28
@@ -42,7 +42,7 @@ def grams2pix(
         warnings.warn(
             f"No English alphabet characters found in input string, returning {ARRAY_DIM} x {ARRAY_DIM} "
             f"zero-array",
-            NoAlphabetCharsWarning,
+            NoAlphabetCharactersWarning,
         )
         return np.zeros((ARRAY_DIM, ARRAY_DIM))
 
@@ -53,16 +53,13 @@ def grams2pix(
         n = int(np.sqrt(len(word_list)))
 
     pic = np.zeros((ARRAY_DIM * n, ARRAY_DIM * n))
-    row = -1
     # Fill array left to right, top to bottom # j/n, cut off word list first, column row names, add black
-    for idx, word in enumerate(word_list):
-        i = idx % n
-        if i == 0:
-            row += 1
-            if row == n:
-                break
+    for word_idx, word in enumerate(word_list[: n ** 2]):
+        column = word_idx % n
+        row = int(word_idx / n)
         pic[
-            row * ARRAY_DIM : (row + 1) * ARRAY_DIM, i * ARRAY_DIM : (i + 1) * ARRAY_DIM
+            row * ARRAY_DIM : (row + 1) * ARRAY_DIM,
+            column * ARRAY_DIM : (column + 1) * ARRAY_DIM,
         ] = _word2pic(word, mapping=mapping, pictype=pictype, compress=compress)
     return pic
 
@@ -89,17 +86,15 @@ def pix2grams(pic: np.ndarray, mapping: str = "aesthetic", separator: str = " ")
     words = []
     length = int(pic.shape[0] / ARRAY_DIM)
     width = int(pic.shape[1] / ARRAY_DIM)
-    row_idx = -1
     # Iterate over array left to right, top to bottom
-    for idx in range(width * length):
-        col_idx = idx % width
-        if col_idx == 0:
-            row_idx += 1
+    for sub_arr_idx in range(width * length):
+        column = sub_arr_idx % width
+        row = int(sub_arr_idx / length)
         words.append(
             _pic2word(
                 pic[
-                    row_idx * ARRAY_DIM : (row_idx + 1) * ARRAY_DIM,
-                    col_idx * ARRAY_DIM : (col_idx + 1) * ARRAY_DIM,
+                    row * ARRAY_DIM : (row + 1) * ARRAY_DIM,
+                    column * ARRAY_DIM : (column + 1) * ARRAY_DIM,
                 ],
                 mapping=mapping,
             )
@@ -191,6 +186,7 @@ def _pic2word(pic: np.ndarray, mapping: str = "aesthetic") -> str:
 
     pic.astype(int).clip(0, 1, out=pic)  # convert image to binary
     letter_list = []
+    # Note only the first pixel with a value of 1 is mapped to a letter
     for i in range(pic.shape[0]):
         column = pic[:, i]
         y_idx_column = column.nonzero()[0]

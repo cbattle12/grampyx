@@ -5,5 +5,5 @@ class PixelValuesWarning(UserWarning):
     pass
 
 
-class NoAlphabetCharsWarning(UserWarning):
+class NoAlphabetCharactersWarning(UserWarning):
     pass
