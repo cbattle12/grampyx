@@ -10,15 +10,20 @@ from grampyx.error_handling import NoAlphabetCharsWarning, PixelValuesWarning
 ARRAY_DIM = 28
 VALID_PICTURE_TYPES = ["gradient", "punchcard"]
 # Contains pre-computed gradients for gradient images (it's faster this way)
-GRADIENT_DICT = {i: np.linspace(1 / ARRAY_DIM, (ARRAY_DIM - 1) / ARRAY_DIM, i) for i in range(1, ARRAY_DIM)}
+GRADIENT_DICT = {
+    i: np.linspace(1 / ARRAY_DIM, (ARRAY_DIM - 1) / ARRAY_DIM, i)
+    for i in range(1, ARRAY_DIM)
+}
 
 
-def grams2pix(words: str,
-              mapping: str = "aesthetic",
-              pictype: str = "gradient",
-              compress: bool = False,
-              separator: Optional[str] = None,
-              n: Optional[int] = None) -> np.ndarray:
+def grams2pix(
+    words: str,
+    mapping: str = "aesthetic",
+    pictype: str = "gradient",
+    compress: bool = False,
+    separator: Optional[str] = None,
+    n: Optional[int] = None,
+) -> np.ndarray:
     """
     Convert string of words to image. Each word is converted to an ARRAY-DIM x ARRAY_DIM image which is embedded in
     a larger n x n image array, ordered from left to right, top to bottom
@@ -33,9 +38,12 @@ def grams2pix(words: str,
                 zero-padded. Default behavior is to take max n where n x n < number of words.
     :return: mapped image
     """
-    if not re.search('[a-zA-Z]', words):
-        warnings.warn(f"No English alphabet characters found in input string, returning {ARRAY_DIM} x {ARRAY_DIM} "
-                      f"zero-array", NoAlphabetCharsWarning)
+    if not re.search("[a-zA-Z]", words):
+        warnings.warn(
+            f"No English alphabet characters found in input string, returning {ARRAY_DIM} x {ARRAY_DIM} "
+            f"zero-array",
+            NoAlphabetCharsWarning,
+        )
         return np.zeros((ARRAY_DIM, ARRAY_DIM))
 
     word_list = words.split(separator)
@@ -53,10 +61,9 @@ def grams2pix(words: str,
             row += 1
             if row == n:
                 break
-        pic[row * ARRAY_DIM:(row + 1) * ARRAY_DIM, i * ARRAY_DIM:(i + 1) * ARRAY_DIM] = _word2pic(word,
-                                                                                                 mapping = mapping,
-                                                                                                 pictype = pictype,
-                                                                                                 compress = compress)
+        pic[
+            row * ARRAY_DIM : (row + 1) * ARRAY_DIM, i * ARRAY_DIM : (i + 1) * ARRAY_DIM
+        ] = _word2pic(word, mapping=mapping, pictype=pictype, compress=compress)
     return pic
 
 
@@ -72,26 +79,40 @@ def pix2grams(pic: np.ndarray, mapping: str = "aesthetic", separator: str = " ")
     """
 
     if (pic < 1).all():
-        warnings.warn(f"All image pixel values < 1, returning empty string. Please rescale your image to contain values"
-                      " >= 1 to generate text.", PixelValuesWarning)
-        return ''
+        warnings.warn(
+            f"All image pixel values < 1, returning empty string. Please rescale your image to contain values"
+            " >= 1 to generate text.",
+            PixelValuesWarning,
+        )
+        return ""
 
     words = []
     length = int(pic.shape[0] / ARRAY_DIM)
     width = int(pic.shape[1] / ARRAY_DIM)
-    row_idx= -1
+    row_idx = -1
     # Iterate over array left to right, top to bottom
     for idx in range(width * length):
         col_idx = idx % width
         if col_idx == 0:
             row_idx += 1
-        words.append(_pic2word(pic[row_idx * ARRAY_DIM:(row_idx + 1) * ARRAY_DIM,
-                                    col_idx * ARRAY_DIM:(col_idx + 1) * ARRAY_DIM],
-                                    mapping = mapping))
+        words.append(
+            _pic2word(
+                pic[
+                    row_idx * ARRAY_DIM : (row_idx + 1) * ARRAY_DIM,
+                    col_idx * ARRAY_DIM : (col_idx + 1) * ARRAY_DIM,
+                ],
+                mapping=mapping,
+            )
+        )
     return separator.join(words).strip(separator)
 
 
-def _word2pic(word: str, mapping: str = "aesthetic", pictype: str = "gradient", compress: bool = False) -> np.ndarray:
+def _word2pic(
+    word: str,
+    mapping: str = "aesthetic",
+    pictype: str = "gradient",
+    compress: bool = False,
+) -> np.ndarray:
     """
     Convert string to ARRAY_DIM x ARRAY_DIM image
 
@@ -113,7 +134,7 @@ def _word2pic(word: str, mapping: str = "aesthetic", pictype: str = "gradient", 
     if len(word) > ARRAY_DIM:
         if compress:
             for letter in mapping_dict.keys():
-                word = word.replace(letter,"")
+                word = word.replace(letter, "")
                 if len(word) <= ARRAY_DIM:
                     break
             # If the word length is still > ARRAY_DIM, e.g. due to special characters, no mapping is possible
@@ -139,7 +160,9 @@ def _word2pic(word: str, mapping: str = "aesthetic", pictype: str = "gradient", 
                 if diff > 0:
                     pic[previous_y:y, start_idx + x] = GRADIENT_DICT[int(diff)]
                 if diff < 0:
-                    pic[previous_y:y:-1, start_idx + x] = GRADIENT_DICT[int(previous_y - y)]
+                    pic[previous_y:y:-1, start_idx + x] = GRADIENT_DICT[
+                        int(previous_y - y)
+                    ]
         previous_y = y
     return pic
 
@@ -154,20 +177,24 @@ def _pic2word(pic: np.ndarray, mapping: str = "aesthetic") -> str:
     """
 
     if pic.shape[0] != pic.shape[1]:
-        raise ValueError(f"First two array dimensions are not equal. Image arrays must be square.")
+        raise ValueError(
+            f"First two array dimensions are not equal. Image arrays must be square."
+        )
     if pic.shape[0] > ARRAY_DIM:
-        raise ValueError(f"First array dimension is {pic.shape[0]}, must be < {ARRAY_DIM}")
+        raise ValueError(
+            f"First array dimension is {pic.shape[0]}, must be < {ARRAY_DIM}"
+        )
     if mapping in inverse_mapping_dicts.keys():
         mapping_dict = inverse_mapping_dicts[mapping]
     else:
         raise KeyError(f"Invalid mapping - valid mappings are: {mapping_dicts.keys()}")
 
-    pic.astype(int).clip(0, 1, out=pic) # convert image to binary
+    pic.astype(int).clip(0, 1, out=pic)  # convert image to binary
     letter_list = []
     for i in range(pic.shape[0]):
         column = pic[:, i]
         y_idx_column = column.nonzero()[0]
         if y_idx_column.size:
-            letter = mapping_dict.get(y_idx_column[0],"")
+            letter = mapping_dict.get(y_idx_column[0], "")
             letter_list.append(letter)
     return "".join(letter_list)
