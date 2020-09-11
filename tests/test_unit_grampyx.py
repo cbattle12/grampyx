@@ -1,6 +1,9 @@
 import unittest
 import numpy as np
 import grampyx.grampyx as gpx
+from pathlib import Path
+
+DATA_PATH = str(Path(__file__).parent.joinpath("data", "alice_image.npy").absolute())
 
 
 class TestGrampyx(unittest.TestCase):
@@ -14,7 +17,7 @@ class TestGrampyx(unittest.TestCase):
             "exclaimed alice that s the reason they re called lessons the gryphon remarked because "
             "they lessen from day to day"
         )
-        cls.alice_image = np.load(r"data/alice_image.npy")
+        cls.alice_image = np.load(DATA_PATH)
 
     def test_word2pic_pic2word_mapping(self):
         a_arr = np.zeros((self.dim, self.dim))
