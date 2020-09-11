@@ -1,5 +1,5 @@
 # grampyx
-[![Build Status](https://travis-ci.com/cbattle12/grampyx.svg?branch=master)](https://travis-ci.com/cbattle12/grampyx.svg?branch=master)
+[![Build Status](https://travis-ci.org/cbattle12/grampyx.svg?branch=master)](https://travis-ci.org/github/cbattle12/grampyx)
 
 Convert text to image
 
