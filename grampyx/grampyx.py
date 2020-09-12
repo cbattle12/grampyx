@@ -39,9 +39,9 @@ def grams2pix(
 
     word_list = words.split(separator)
 
-    # Use largest square that still is completely filled by words if no size is given. This leaves out some words.
+    # Use smallest square that contains all words.
     if not n:
-        n = int(np.sqrt(len(word_list)))
+        n = int(np.sqrt(len(word_list))) + 1
 
     pic = np.zeros((ARRAY_DIM * n, ARRAY_DIM * n))
     # Fill array left to right, top to bottom # j/n, cut off word list first, column row names, add black
